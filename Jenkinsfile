@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/aankitOfficial1/Banking-java-project.git'
+                git branch: 'master', url: 'https://github.com/aankitOfficial1/Banking-java-project.git'
                 echo 'GitHub repository checked out'
             }
         }
