@@ -1,42 +1,42 @@
-pipeline{
+pipeline {
     agent any
-    stages{
-        stage('checkout the code from github'){
-            steps{
-                 git url: 'https://github.com/aankitOfficial1/Banking-java-project/'
-                 echo 'github url checkout'
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/aankitOfficial1/Banking-java-project.git'
+                echo 'GitHub repository checked out'
             }
         }
-        stage('codecompile with ankit'){
-            steps{
-                echo 'starting compiling'
+        stage('Compile Code') {
+            steps {
+                echo 'Starting compilation'
                 sh 'mvn compile'
             }
         }
-        stage('codetesting with ankit'){
-            steps{
+        stage('Run Tests') {
+            steps {
                 sh 'mvn test'
             }
         }
-        stage('qa with ankit'){
-            steps{
+        stage('Code Quality Check') {
+            steps {
                 sh 'mvn checkstyle:checkstyle'
             }
         }
-        stage('package with ankit'){
-            steps{
+        stage('Package Application') {
+            steps {
                 sh 'mvn package'
             }
         }
-        stage('run dockerfile'){
-          steps{
-               sh 'docker build -t myimg .'
-           }
-         }
-        stage('port expose'){
-            steps{
-                sh 'docker run -dt -p 8091:8091 --name c000 myimg'
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t myimg .'
             }
-        }   
+        }
+        stage('Run Docker Container') {
+            steps {
+                sh 'docker run -dit --rm -p 8091:8091 --name c000 myimg'
+            }
+        }
     }
 }
